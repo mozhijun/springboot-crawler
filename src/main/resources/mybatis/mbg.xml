@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--环境配置-->
+    <context id="mybatis" targetRuntime="MyBatis3">
+        <!--是否生成注释-->
+        <commentGenerator>
+            <!--不生成注释-->
+            <property name="suppressAllComments" value="true"></property>
+        </commentGenerator>
+        <!--JDBC连接信息-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/crawler"
+                        userId=""
+                        password="">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <!--不适用BigDecimal ，如果设置为true Mybatis中所有的数字类型统一会被设置为BigDecimal（大数字）
+                false的时候，则根据数据库字段类型动态生成对应的Integer、Long、Double、Float
+            -->
+            <property name="forceBigDecimals" value="false"></property>
+        </javaTypeResolver>
+        <!--实体类生成的设置-->
+        <javaModelGenerator targetPackage="com.xmlvhy.crawler.entity"
+                            targetProject="E:\dev_project\crawler-bsbdj\src\main\java">
+            <!-- 根据包名自动生成对应的目录 -->
+            <property name="enableSubPackages" value="true"></property>
+        </javaModelGenerator>
+        <!--生成 mapper XML -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="E:\dev_project\crawler-bsbdj\src\main\resources\mybatis">
+            <property name="enableSubPackages" value="true"></property>
+        </sqlMapGenerator>
+        <!-- Mapper接口的设置 XMLMAPPER ，代表生成xml文件-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.xmlvhy.crawler.dao"
+                             targetProject="E:\dev_project\crawler-bsbdj\src\main\java">
+            <property name="enableSubPackages" value="true"></property>
+        </javaClientGenerator>
+        <!-- 生成Mapper -->
+        <!--<table tableName="t_content" domainObjectName="Content" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--<columnOverride column="content_text" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_comment" domainObjectName="Comment" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--<columnOverride column="comment_text" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_forum" domainObjectName="Forum" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--<columnOverride column="info" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_image" domainObjectName="Image" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--&lt;!&ndash; 设置直接回填自动生成的ID号 &ndash;&gt;-->
+        <!--&lt;!&ndash; 在insert语句执行完后， 执行mysql数据库获取最新主键的语句： select LAST_ID() , 并将新纪录的主键值回填到实体类的ImageId属性中 &ndash;&gt;-->
+        <!--&lt;!&ndash;  只适用于自动生成的主键&ndash;&gt;-->
+        <!--<generatedKey column="image_id" sqlStatement="mysql" type="post" identity="true"></generatedKey>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_video" domainObjectName="Video" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--<generatedKey column="video_id" sqlStatement="mysql" type="post" identity="true"></generatedKey>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_user" domainObjectName="User" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="t_channel" domainObjectName="Channel" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="t_source" domainObjectName="Source" enableSelectByExample="false"-->
+        <!--enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">-->
+        <!--<generatedKey column="source_id" sqlStatement="mysql" type="post" identity="true"></generatedKey>-->
+        <!--<columnOverride column="response_text" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>-->
+        <!--<columnOverride column="url" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>-->
+        <!--</table>-->
+        <table tableName="t_customer" domainObjectName="Customer" enableSelectByExample="false"
+               enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">
+            <generatedKey column="id" sqlStatement="mysql" type="post" identity="true"></generatedKey>
+        </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>预览</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="//imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer-2.2.1.js" charset="utf-8"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" th:href="@{/css/me.css}" href="../static/css/me.css" media="all">
+    <style>
+
+    </style>
+</head>
+<body>
+<!--<div style="margin:50px 600px">-->
+<!--<div>-->
+<div style="max-width:414px;">
+    <!--视频-->
+    <div th:if="${content.contentType == 'video'}">
+        <div id="video" class="video"></div>
+        <!--th:inline="javascript" 通知当前代码块是一个javascript -->
+        <script th:inline="javascript">
+            var player = new TcPlayer('video', {
+                "mp4": [[${video.videoUrl}]], //请替换成实际可用的播放地址
+                "autoplay": false,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+                "coverpic": {"style": "stretch", "src": [[${video.thumb}]]},
+                "width": '100%',//视频的显示宽度，请尽量使用视频分辨率宽度
+                "height": 'auto'//视频的显示高度，请尽量使用视频分辨率高度
+            });
+        </script>
+    </div>
+    <!--图片-->
+    <div th:if="${content.contentType == 'image' ||  content.contentType == 'gif'}">
+        <img th:src="${image.bigUrl}" style="width: 100%" alt="">
+    </div>
+    <!--内容或标题-->
+    <div class="layui-row">
+        <span style="font-size:16px">[[${content.contentText}]]</span>
+    </div>
+    <div class="layui-row toolbar " style="padding:5px;padding-left: 20px">
+        <i class="layui-icon"><span>[[${time}]]</span></i>
+        <i class="layui-icon">&#xe6c6;<span>[[${content.likeCount}]]</span></i>
+        <i class="layui-icon">&#xe6c5;<span>[[${content.hateCount}]]</span></i>
+        <i class="layui-icon">&#xe641;<span>[[${content.shareCount}]]</span></i>
+    </div>
+
+    <!--圈子-->
+    <div class="layui-row" th:if="${forum != null}">
+        <hr style="height: 5px">
+        <img th:src="${forum.logo}" class="forum-icon">
+        <div class="forum-title">[[${forum.name}]]</div>
+        <div class="forum-subtitle" th:text="|这个圈子有${forum.userCount}个奇葩,${forum.postCount}个帖子|"></div>
+        <div class="forum-subtitle"></div>
+    </div>
+    <hr style="height: 5px">
+
+    <!--评论区-->
+    <div class="layui-row" th:if="${commons.size() > 0}">
+        <div style="margin-bottom: 20px;">热门评论</div>
+        <div th:each="comment,stat : ${commons}">
+            <img class="comment-icon" th:src="${comment.header}">
+            <div class="comment-text"><b>[[${comment.nickname}]]</b></div>
+            <div class="comment-text">[[${comment.comment_text}]]</div>
+            <hr>
+        </div>
+    </div>
+    <!--</div>-->
+</div>
+</body>
+</html>

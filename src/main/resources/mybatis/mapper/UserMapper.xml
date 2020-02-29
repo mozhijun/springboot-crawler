@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmlvhy.crawler.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.xmlvhy.crawler.entity.User">
+    <id column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="header" jdbcType="VARCHAR" property="header" />
+    <result column="is_vip" jdbcType="INTEGER" property="isVip" />
+    <result column="is_v" jdbcType="INTEGER" property="isV" />
+    <result column="room_url" jdbcType="VARCHAR" property="roomUrl" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="room_role" jdbcType="VARCHAR" property="roomRole" />
+    <result column="room_icon" jdbcType="VARCHAR" property="roomIcon" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uid, header, is_vip, is_v, room_url, room_name, room_role, room_icon, nickname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where uid = #{uid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_user
+    where uid = #{uid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmlvhy.crawler.entity.User">
+    insert into t_user (uid, header, is_vip, 
+      is_v, room_url, room_name, 
+      room_role, room_icon, nickname
+      )
+    values (#{uid,jdbcType=BIGINT}, #{header,jdbcType=VARCHAR}, #{isVip,jdbcType=INTEGER}, 
+      #{isV,jdbcType=INTEGER}, #{roomUrl,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{roomRole,jdbcType=VARCHAR}, #{roomIcon,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmlvhy.crawler.entity.User">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="header != null">
+        header,
+      </if>
+      <if test="isVip != null">
+        is_vip,
+      </if>
+      <if test="isV != null">
+        is_v,
+      </if>
+      <if test="roomUrl != null">
+        room_url,
+      </if>
+      <if test="roomName != null">
+        room_name,
+      </if>
+      <if test="roomRole != null">
+        room_role,
+      </if>
+      <if test="roomIcon != null">
+        room_icon,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="header != null">
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="isVip != null">
+        #{isVip,jdbcType=INTEGER},
+      </if>
+      <if test="isV != null">
+        #{isV,jdbcType=INTEGER},
+      </if>
+      <if test="roomUrl != null">
+        #{roomUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null">
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomRole != null">
+        #{roomRole,jdbcType=VARCHAR},
+      </if>
+      <if test="roomIcon != null">
+        #{roomIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmlvhy.crawler.entity.User">
+    update t_user
+    <set>
+      <if test="header != null">
+        header = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="isVip != null">
+        is_vip = #{isVip,jdbcType=INTEGER},
+      </if>
+      <if test="isV != null">
+        is_v = #{isV,jdbcType=INTEGER},
+      </if>
+      <if test="roomUrl != null">
+        room_url = #{roomUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null">
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomRole != null">
+        room_role = #{roomRole,jdbcType=VARCHAR},
+      </if>
+      <if test="roomIcon != null">
+        room_icon = #{roomIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmlvhy.crawler.entity.User">
+    update t_user
+    set header = #{header,jdbcType=VARCHAR},
+      is_vip = #{isVip,jdbcType=INTEGER},
+      is_v = #{isV,jdbcType=INTEGER},
+      room_url = #{roomUrl,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      room_role = #{roomRole,jdbcType=VARCHAR},
+      room_icon = #{roomIcon,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=BIGINT}
+  </update>
+</mapper>

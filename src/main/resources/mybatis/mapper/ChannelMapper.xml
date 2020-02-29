@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmlvhy.crawler.dao.ChannelMapper">
+  <resultMap id="BaseResultMap" type="com.xmlvhy.crawler.entity.Channel">
+    <id column="channel_id" jdbcType="BIGINT" property="channelId" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="sort_num" jdbcType="INTEGER" property="sortNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    channel_id, channel_name, sort_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_channel
+    where channel_id = #{channelId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_channel
+    where channel_id = #{channelId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmlvhy.crawler.entity.Channel">
+    insert into t_channel (channel_id, channel_name, sort_num
+      )
+    values (#{channelId,jdbcType=BIGINT}, #{channelName,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmlvhy.crawler.entity.Channel">
+    insert into t_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="sortNum != null">
+        sort_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelId != null">
+        #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null">
+        #{sortNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmlvhy.crawler.entity.Channel">
+    update t_channel
+    <set>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null">
+        sort_num = #{sortNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where channel_id = #{channelId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmlvhy.crawler.entity.Channel">
+    update t_channel
+    set channel_name = #{channelName,jdbcType=VARCHAR},
+      sort_num = #{sortNum,jdbcType=INTEGER}
+    where channel_id = #{channelId,jdbcType=BIGINT}
+  </update>
+</mapper>

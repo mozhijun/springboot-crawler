@@ -1,0 +1,124 @@
+body {
+    overflow: hidden;
+}
+
+.video-player {
+    background-color: transparent;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+}
+
+.video_mask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 90;
+}
+
+.login, .register {
+    height: 350px;
+    width: 260px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -150px 0 0 -150px;
+    z-index: 99;
+}
+
+.login h1, .register h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form_code {
+    position: relative;
+}
+
+.form_code .code {
+    position: absolute;
+    right: 0;
+    top: 1px;
+    cursor: pointer;
+}
+
+.login_btn {
+    width: 100%;
+}
+
+/*im*/
+.chat_login_btn {
+    width: 48%;
+}
+
+.chat_register_btn {
+    width: 48%;
+}
+
+.chat_login_btn, .chat_register_btn {
+    background-color: rgb(52, 179, 175);
+}
+
+.right {
+    float: right;
+}
+
+.register {
+    height: 360px;
+}
+
+.back-ground {
+    background-color: transparent;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+}
+
+/*复选*/
+.layui-form-checkbox[lay-skin="primary"] span {
+    color: white;
+}
+
+.layui-form-checkbox[lay-skin="primary"]:hover i {
+    border-color: rgb(52, 179, 175);
+    color: #fff;
+}
+
+.layui-form-checked[lay-skin="primary"] i {
+    border-color: rgb(52, 179, 175);
+    background-color: rgb(52, 179, 175);
+    color: #fff;
+}
+
+/*单选*/
+.layui-form-radio span {
+    color: white;
+}
+
+.layui-form-radio:hover i {
+    border-color: #5FB878;
+}
+
+.layui-form-radio > i:hover, .layui-form-radioed > i {
+    color: #5FB878;
+}
+
+.forget-password {
+    padding: 0;
+    color: white;
+    cursor: pointer;
+    margin-left: 200px;
+}
+
+.forget-password:hover {
+    color: rgb(52, 179, 175);
+}

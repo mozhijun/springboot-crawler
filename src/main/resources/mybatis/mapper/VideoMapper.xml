@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmlvhy.crawler.dao.VideoMapper">
+  <resultMap id="BaseResultMap" type="com.xmlvhy.crawler.entity.Video">
+    <id column="video_id" jdbcType="BIGINT" property="videoId" />
+    <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="download_url" jdbcType="VARCHAR" property="downloadUrl" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="playfcount" jdbcType="INTEGER" property="playfcount" />
+    <result column="duration" jdbcType="INTEGER" property="duration" />
+    <result column="playcount" jdbcType="INTEGER" property="playcount" />
+    <result column="thumb" jdbcType="VARCHAR" property="thumb" />
+    <result column="thumb_small" jdbcType="VARCHAR" property="thumbSmall" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    video_id, video_url, download_url, width, height, playfcount, duration, playcount, 
+    thumb, thumb_small, content_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_video
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_video
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmlvhy.crawler.entity.Video">
+    <selectKey keyProperty="videoId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_video (video_url, download_url, width, 
+      height, playfcount, duration, 
+      playcount, thumb, thumb_small, 
+      content_id)
+    values (#{videoUrl,jdbcType=VARCHAR}, #{downloadUrl,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, 
+      #{height,jdbcType=INTEGER}, #{playfcount,jdbcType=INTEGER}, #{duration,jdbcType=INTEGER}, 
+      #{playcount,jdbcType=INTEGER}, #{thumb,jdbcType=VARCHAR}, #{thumbSmall,jdbcType=VARCHAR}, 
+      #{contentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmlvhy.crawler.entity.Video">
+    <selectKey keyProperty="videoId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoUrl != null">
+        video_url,
+      </if>
+      <if test="downloadUrl != null">
+        download_url,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="playfcount != null">
+        playfcount,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="playcount != null">
+        playcount,
+      </if>
+      <if test="thumb != null">
+        thumb,
+      </if>
+      <if test="thumbSmall != null">
+        thumb_small,
+      </if>
+      <if test="contentId != null">
+        content_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null">
+        #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="playfcount != null">
+        #{playfcount,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="playcount != null">
+        #{playcount,jdbcType=INTEGER},
+      </if>
+      <if test="thumb != null">
+        #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbSmall != null">
+        #{thumbSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmlvhy.crawler.entity.Video">
+    update t_video
+    <set>
+      <if test="videoUrl != null">
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null">
+        download_url = #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="playfcount != null">
+        playfcount = #{playfcount,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="playcount != null">
+        playcount = #{playcount,jdbcType=INTEGER},
+      </if>
+      <if test="thumb != null">
+        thumb = #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbSmall != null">
+        thumb_small = #{thumbSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmlvhy.crawler.entity.Video">
+    update t_video
+    set video_url = #{videoUrl,jdbcType=VARCHAR},
+      download_url = #{downloadUrl,jdbcType=VARCHAR},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      playfcount = #{playfcount,jdbcType=INTEGER},
+      duration = #{duration,jdbcType=INTEGER},
+      playcount = #{playcount,jdbcType=INTEGER},
+      thumb = #{thumb,jdbcType=VARCHAR},
+      thumb_small = #{thumbSmall,jdbcType=VARCHAR},
+      content_id = #{contentId,jdbcType=BIGINT}
+    where video_id = #{videoId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByContentId" parameterType="long" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/>
+      from t_video
+      where content_id = #{contentId}
+  </select>
+</mapper>

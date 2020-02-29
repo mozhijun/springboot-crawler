@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>大数据后台</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../static/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头部导航栏部分-->
+    <div class="layui-header layui-bg-cyan">
+        <div class="layui-logo">数据后台管理</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <!--<ul class="layui-nav layui-layout-left">-->
+        <!--<li class="layui-nav-item"><a href="">控制台</a></li>-->
+        <!--<li class="layui-nav-item"><a href="">商品管理</a></li>-->
+        <!--<li class="layui-nav-item"><a href="">用户</a></li>-->
+        <!--<li class="layui-nav-item">-->
+        <!--<a href="javascript:;">其它系统</a>-->
+        <!--<dl class="layui-nav-child">-->
+        <!--<dd><a href="">邮件管理</a></dd>-->
+        <!--<dd><a href="">消息管理</a></dd>-->
+        <!--<dd><a href="">授权管理</a></dd>-->
+        <!--</dl>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--头部用户信息部分-->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="https://www.xmlvhy.com/images/user.png" th:src="${customer.header}" class="layui-nav-img">
+                    <span th:text="${customer.name}">小莫先生</span>
+                </a>
+                <dl class="layui-nav-child" style="text-align: center">
+                    <dd><a href="javascript:void(0);" th:href="@{/logout}">退出系统</a></dd>
+                    <dd><a href="javascript:void(0);" onclick="customerInfo()">基本资料</a></dd>
+                </dl>
+            </li>
+            <!--<li class="layui-nav-item"><a href="">退出</a></li>-->
+        </ul>
+    </div>
+
+    <!--侧边栏-->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">百思数据管理中心</a>
+                    <dl class="layui-nav-child">
+                        <!--<dd><a href="javascript:;">内容管理</a></dd>-->
+                        <dd><a href="javascript:;" class="layui-this">数据管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="" style="padding: 15px;">
+            <!--<blockquote class="layui-elem-quote">百思内容管理中心</blockquote>-->
+            <div class="layui-row">
+                <!-- layui表单 -->
+                <form class="layui-form">
+                    <!-- layui-inline 在一个行中显示多个div -->
+                    <div class="layui-inline" style="width: 150px">
+                        <select name="channel" id="channel" lay-filter="channel">
+                            <option value="-1">全部频道</option>
+                            <option value="1">推荐</option>
+                            <option value="2">视频</option>
+                            <option value="3">图片</option>
+                            <option value="4">笑话</option>
+                            <option value="5">排行</option>
+                        </select>
+                    </div>
+
+                    <div class="layui-inline" style="width: 150px">
+                        <select name="contentType" id="contentType" lay-filter="contentType">
+                            <option value="-1">全部类型</option>
+                            <option value="video">视频</option>
+                            <option value="image">图片</option>
+                            <option value="gif">动态图</option>
+                            <option value="text">文本</option>
+                        </select>
+                    </div>
+
+                    <div class="layui-inline">
+                        <div class="layui-input-inline" style="width: 200px">
+                            <input type="text" id="keyword" name="keyword" placeholder="请输入要查询的关键字" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <a href="javascript:void(0)" id="btnQuery" class="layui-btn">查询</a>
+                    </div>
+
+                </form>
+            </div>
+
+            <!--
+        layui-table 代表是一个表格
+        url : ajax获取数据的地址
+        page : 自动生成分页栏
+        height:auto 表格高度随着内容自适应
+        lay-filter相当于layui自己使用的ID
+    -->
+            <table class="layui-table"
+                   lay-data="{url:'/crawler/manage/list_by_params' , page:true , height : 'auto',id:'grdContent',done: doneRefresh}"
+                   lay-filter="grdContent">
+                <thead style="text-align: center">
+                <tr>
+                    <th lay-data="{field:'content_id', width:150, sort: true}">ID</th>
+                    <th lay-data="{field:'channel_name',width:100 }">频道</th>
+                    <th lay-data="{field:'content_type',width:100 }">类型</th>
+                    <th lay-data="{field:'content_text', width:230}">标题</th>
+                    <th lay-data="{field:'nickname', width:187}">用户</th>
+                    <th lay-data="{field:'passtime', width:190}">发布时间</th>
+                    <th lay-data="{field:'comment_count', width:70}">评论</th>
+                    <th lay-data="{field:'like_count',width:70}">点赞</th>
+                    <th lay-data="{field:'hate_count',width:70}">讨厌</th>
+                    <!--templet使用指定的选择器组件的内容渲染单元格-->
+                    <th lay-data="{field:'op',width:'110',templet:'#op'}">操作</th>
+                </tr>
+                </thead>
+            </table>
+            <div id="op" style="display: none">
+                <div>
+                    <button class="layui-btn layui-btn-normal layui-btn-xs" name="btnPreview"
+                            content-id="{{d.content_id}}">预览
+                    </button>
+                    <button class="layui-btn layui-btn-danger layui-btn-xs" name="btnDelete"
+                            content-id="{{d.content_id}}">
+                        删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部固定区域 -->
+    <div class="layui-footer" align="center">
+        <span class="layui-text"><b>郑重声明:此站涉及的相关数据仅用于学习交流，不得用于商业用途。</b></span>
+        <span class="layui-text">Copyright © 2019 BY XIAOMO</span>
+    </div>
+</div>
+<!-- 利用JS初始化上面的table组件 -->
+<script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    var $;
+    var layer;
+    var table;
+    layui.use(["layer", "element", "table", "form"], function () {
+        //$即是jquery,layui自动内嵌了jquery，layui.$相当于获取了jquery对象
+        $ = layui.$;
+        table = layui.table;
+        layer = layui.layer;
+        //点击查询获取三个值,并且向后台传入三个值
+        $('#btnQuery').click(function () {
+            var channelId = $('#channel').val();
+            var contentType = $('#contentType').val();
+            var keyword = $("#keyword").val();
+            //layui 表格重载
+            table.reload("grdContent", {
+                url: "/crawler/manage/list_by_params",
+                where: {
+                    "channelId": channelId,
+                    "contentType": contentType,
+                    "keyword": keyword
+                }
+            });
+        });
+    });
+
+    //基本信息
+    function customerInfo() {
+        layer.msg("写不动了老铁,mmp！", {icon: 5, time: 1500});
+    }
+
+    //表格加载后执行的方法
+    function doneRefresh() {
+        $("button[name='btnDelete']").click(function () {
+            //attr用于获取或设置元素的指定属性
+            //$(this)代表当前事件产生的对象
+            var contentId = $(this).attr("content-id");
+            layer.confirm('确定要删除当前内容吗？', {title: '消息提示', icon: 5}, function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: "/crawler/manage/delete",
+                    data: {"contentId": contentId},
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result);
+                        if (result.code == 0) {
+                            layer.msg(result.msg, {
+                                icon: 1, //图标
+                                offset: '200px',//对话框距离页面上边距200px
+                                time: 1500 //两秒后自动关闭
+                            });
+                        } else {
+                            layer.msg(result.msg, {
+                                icon: 5, //图标
+                                offset: '200px',//对话框距离页面上边距200px
+                                time: 1500 //两秒后自动关闭
+                            });
+                        }
+                        table.reload("grdContent");
+                    }
+                });
+            });
+        });
+
+        //绑定预览按钮
+        $("button[name='btnPreview']").click(function () {
+            var contentId = $(this).attr("content-id");
+            // alert(contentId);
+            window.open("/crawler/manage/preview/" + contentId + ".html");
+        });
+    }
+</script>
+</body>
+</html>

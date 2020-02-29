@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmlvhy.crawler.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.xmlvhy.crawler.entity.Customer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="header" jdbcType="VARCHAR" property="header" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, password, uid, nickname, header, login_name, sign, sex, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xmlvhy.crawler.entity.Customer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_customer (name, password, uid, 
+      nickname, header, login_name, 
+      sign, sex, create_time
+      )
+    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{header,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{sign,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmlvhy.crawler.entity.Customer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="header != null">
+        header,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="sign != null">
+        sign,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null">
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmlvhy.crawler.entity.Customer">
+    update t_customer
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="header != null">
+        header = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmlvhy.crawler.entity.Customer">
+    update t_customer
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="selectByPwdAndLoginName" resultType="com.xmlvhy.crawler.entity.Customer">
+       select <include refid="Base_Column_List"/>
+       from t_customer
+       where login_name = #{loginName} and password = #{password}
+   </select>
+   <select id="selectCustomerByLoginName" parameterType="string" resultType="com.xmlvhy.crawler.entity.Customer">
+       select <include refid="Base_Column_List"/>
+       from t_customer
+       where login_name = #{loginName}
+   </select>
+   <select id="selectCustomerByOpenId" parameterType="string" resultType="com.xmlvhy.crawler.entity.Customer">
+       select <include refid="Base_Column_List"/>
+       from t_customer
+       where uid = #{openid}
+   </select>
+</mapper>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>大数据中心</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}" media="all"/>
+    <link rel="stylesheet" href="../static/css/crawler.css" th:href="@{/css/crawler.css}" media="all"/>
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+    <!--//收藏用logo图标-->
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <script type="text/javascript">
+        if (window != top) {
+            top.location.href = location.href;
+        }
+
+    </script>
+</head>
+<body>
+
+<div class="video_mask">
+    <img src="../static/images/login_bg.jpg" th:src="@{/images/login_bg.jpg}">
+</div>
+<!--<video class="video-player" preload="auto" autoplay="autoplay" loop="loop">-->
+    <!--<source src="../static/video/login_bg.mov" th:src="'https://www.xmlvhy.com/sources/crawler/login_bg.mov'" type="video/mp4">-->
+<!--</video>-->
+
+<div class="video_mask"></div>
+<div class="register">
+    <h1>用户注册</h1>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <input class="layui-input" name="loginName" placeholder="用户名" lay-verify="required|username"
+                   type="text" autocomplete="off">
+        </div>
+        <div class="layui-form-item">
+            <input class="layui-input" name="password" placeholder="密码" lay-verify="required"
+                   type="password" autocomplete="off">
+        </div>
+
+        <div class="layui-form-item">
+            <input class="layui-input" name="name" placeholder="姓名" lay-verify="required"
+                   type="text" autocomplete="off">
+        </div>
+        <!--<div class="layui-form-item">-->
+        <!--<input class="layui-input" name="sign" placeholder="签名" lay-verify="required"-->
+        <!--type="text" autocomplete="off">-->
+        <!--</div>-->
+
+        <div class="layui-form-item">
+            <div class="layui-input-normal">
+                <input type="radio" name="sex" value="1" title="男" checked="">
+                <input type="radio" name="sex" value="2" title="女">
+                <input type="radio" name="sex" value="0" title="保密">
+            </div>
+        </div>
+
+        <span class="layui-btn chat_register_btn" onclick="showLogin()">返回登录</span>
+        <button class="layui-btn chat_login_btn right" lay-submit="" lay-filter="register">立即注册</button>
+
+        <div class="layui-form-item quick-login" align="center">
+            <label style="margin-top: 30px;color: #cccccc">使用其他账号登录</label>
+            <i class="qqLogin fa fa-qq" style="color: white;font-size: 24px;
+            cursor: pointer;margin: 30px 0 0 20px;"></i>
+            <i class="wxLogin fa fa-wechat" style="color: white;font-size: 24px;
+            cursor: pointer;margin: 30px 0 0 10px;"></i>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    var $;
+    var form;
+    var layer;
+    layui.use(['form', 'layer'], function () {
+        form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : parent.layer,
+            $ = layui.jquery;
+        //注册账号
+        form.on("submit(register)", function (data) {
+            $.ajax({
+                type: "post",
+                url: "/crawler/register",
+                data: data.field,
+                dataType: "json",
+                success: function (result) {
+                    if (result.code == 0) {// 注册成功
+                        layer.confirm("注册成功,立即登录", function () {
+                            showLogin();
+                        });
+                    } else {
+                        layer.msg(result.msg, {icon: 5, time: 1000});
+                    }
+                }
+            });
+            return false;
+        });
+
+        //qq登录
+        $(document).on("click", ".quick-login i.qqLogin", function () {
+            // layer.msg("功能正在开发中，即将开放哦!",{time: 1500});
+            // var access_page =/*[[#{qqLogin.redirectUrl}]]*/"";
+            var access_page =/*[[#{login.accessPage}]]*/"";
+            $.post(
+                '/crawler/qq/oauth',
+                {'state': access_page},
+                function (result) {
+                    if (result.code == 0) {
+                        //成功,则跳转到微信二维码扫一扫页面
+                        window.location.href = result.data.oauthUrl;
+                    } else {
+                        layer.msg(result.msg,
+                            {
+                                time: 1000,
+                                icon: 5
+                            });
+                    }
+                }
+            );
+        });
+
+        // 微信登录
+        $(document).on("click", ".quick-login i.wxLogin", function () {
+            //TODO:这里注意部署的时候修改一下 url,扫码成功后跳转的页面
+            // var access_page = "http://xiaomo.mynatapp.cc/crawler/manage/center";
+            var access_page =/*[[#{login.accessPage}]]*/"";
+            $.ajax({
+                type: "post",
+                url: "/crawler/weChat/login_url",
+                data: {
+                    "access_page": access_page
+                },
+                dataType: "json",
+                success: function (result) {
+                    if (result.code == 0) {//登录成功
+                        //成功,则跳转到微信二维码扫一扫页面
+                        window.location.href = result.data.qrCodeUrl;
+                    } else {
+                        layer.msg(result.msg,
+                            {
+                                time: 1000,
+                                icon: 5
+                            });
+                    }
+                }
+            });
+        });
+    });
+
+    //跳转登录页面
+    function showLogin() {
+        window.location.href = /*[[@{/}]]*/"/crawler";
+    }
+
+</script>
+
+</body>
+</html>

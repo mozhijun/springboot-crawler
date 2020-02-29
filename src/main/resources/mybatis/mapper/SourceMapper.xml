@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmlvhy.crawler.dao.SourceMapper">
+  <resultMap id="BaseResultMap" type="com.xmlvhy.crawler.entity.Source">
+    <id column="source_id" jdbcType="BIGINT" property="sourceId" />
+    <result column="channel_id" jdbcType="BIGINT" property="channelId" />
+    <result column="response_text" jdbcType="VARCHAR" property="responseText" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    source_id, channel_id, response_text, create_time, url, state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_source
+    where source_id = #{sourceId,jdbcType=BIGINT}
+  </select>
+
+  <select id="findAllByState" parameterType="string" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/>
+      from t_source
+      where state = #{state}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_source
+    where source_id = #{sourceId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmlvhy.crawler.entity.Source">
+    <selectKey keyProperty="sourceId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_source (channel_id, response_text, create_time, 
+      url, state)
+    values (#{channelId,jdbcType=BIGINT}, #{responseText,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{url,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmlvhy.crawler.entity.Source">
+    <selectKey keyProperty="sourceId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_source
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="responseText != null">
+        response_text,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelId != null">
+        #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="responseText != null">
+        #{responseText,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmlvhy.crawler.entity.Source">
+    update t_source
+    <set>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="responseText != null">
+        response_text = #{responseText,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where source_id = #{sourceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmlvhy.crawler.entity.Source">
+    update t_source
+    set channel_id = #{channelId,jdbcType=BIGINT},
+      response_text = #{responseText,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR}
+    where source_id = #{sourceId,jdbcType=BIGINT}
+  </update>
+</mapper>

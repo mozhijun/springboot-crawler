@@ -1,0 +1,13 @@
+package com.xmlvhy.crawler.dao;
+
+import com.xmlvhy.crawler.entity.Source;
+
+/**
+ * @Author: 小莫
+ * @Date: 2019-04-09 15:43
+ * @Description TODO: 原始数据 dao 层
+ */
+public interface SourceDao {
+
+    int saveSource(Source source);
+}

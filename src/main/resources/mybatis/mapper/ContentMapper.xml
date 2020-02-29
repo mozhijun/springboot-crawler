@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmlvhy.crawler.dao.ContentMapper">
+  <resultMap id="BaseResultMap" type="com.xmlvhy.crawler.entity.Content">
+    <id column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="channel_id" jdbcType="BIGINT" property="channelId" />
+    <result column="forum_id" jdbcType="BIGINT" property="forumId" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="bookmark_count" jdbcType="INTEGER" property="bookmarkCount" />
+    <result column="content_text" jdbcType="VARCHAR" property="contentText" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="hate_count" jdbcType="INTEGER" property="hateCount" />
+    <result column="share_url" jdbcType="VARCHAR" property="shareUrl" />
+    <result column="share_count" jdbcType="INTEGER" property="shareCount" />
+    <result column="passtime" jdbcType="VARCHAR" property="passtime" />
+    <result column="content_type" jdbcType="VARCHAR" property="contentType" />
+    <result column="source_id" jdbcType="BIGINT" property="sourceId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    content_id, channel_id, forum_id, uid, status, comment_count, bookmark_count, content_text, 
+    like_count, hate_count, share_url, share_count, passtime, content_type, source_id, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_content
+    where content_id = #{contentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_content
+    where content_id = #{contentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmlvhy.crawler.entity.Content">
+    insert into t_content (content_id, channel_id, forum_id, 
+      uid, status, comment_count, 
+      bookmark_count, content_text, like_count, 
+      hate_count, share_url, share_count, 
+      passtime, content_type, source_id, 
+      create_time)
+    values (#{contentId,jdbcType=BIGINT}, #{channelId,jdbcType=BIGINT}, #{forumId,jdbcType=BIGINT}, 
+      #{uid,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, 
+      #{bookmarkCount,jdbcType=INTEGER}, #{contentText,jdbcType=VARCHAR}, #{likeCount,jdbcType=INTEGER}, 
+      #{hateCount,jdbcType=INTEGER}, #{shareUrl,jdbcType=VARCHAR}, #{shareCount,jdbcType=INTEGER}, 
+      #{passtime,jdbcType=VARCHAR}, #{contentType,jdbcType=VARCHAR}, #{sourceId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmlvhy.crawler.entity.Content">
+    insert into t_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="forumId != null">
+        forum_id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="bookmarkCount != null">
+        bookmark_count,
+      </if>
+      <if test="contentText != null">
+        content_text,
+      </if>
+      <if test="likeCount != null">
+        like_count,
+      </if>
+      <if test="hateCount != null">
+        hate_count,
+      </if>
+      <if test="shareUrl != null">
+        share_url,
+      </if>
+      <if test="shareCount != null">
+        share_count,
+      </if>
+      <if test="passtime != null">
+        passtime,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="sourceId != null">
+        source_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="forumId != null">
+        #{forumId,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="bookmarkCount != null">
+        #{bookmarkCount,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null">
+        #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null">
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="hateCount != null">
+        #{hateCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareUrl != null">
+        #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null">
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="passtime != null">
+        #{passtime,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmlvhy.crawler.entity.Content">
+    update t_content
+    <set>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=BIGINT},
+      </if>
+      <if test="forumId != null">
+        forum_id = #{forumId,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="bookmarkCount != null">
+        bookmark_count = #{bookmarkCount,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null">
+        content_text = #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null">
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="hateCount != null">
+        hate_count = #{hateCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareUrl != null">
+        share_url = #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCount != null">
+        share_count = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="passtime != null">
+        passtime = #{passtime,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null">
+        source_id = #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where content_id = #{contentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmlvhy.crawler.entity.Content">
+    update t_content
+    set channel_id = #{channelId,jdbcType=BIGINT},
+      forum_id = #{forumId,jdbcType=BIGINT},
+      uid = #{uid,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      bookmark_count = #{bookmarkCount,jdbcType=INTEGER},
+      content_text = #{contentText,jdbcType=VARCHAR},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      hate_count = #{hateCount,jdbcType=INTEGER},
+      share_url = #{shareUrl,jdbcType=VARCHAR},
+      share_count = #{shareCount,jdbcType=INTEGER},
+      passtime = #{passtime,jdbcType=VARCHAR},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      source_id = #{sourceId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where content_id = #{contentId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectAll" resultType="map">
+      select c.*,ch.channel_name,u.nickname
+      from t_content c,t_channel ch ,t_user u
+      where c.channel_id = ch.channel_id and c.uid = u.uid
+  </select>
+
+  <select id="selectByParams" parameterType="map" resultType="map">
+      select c.*,ch.channel_name,u.nickname
+      from t_content c,t_channel ch,t_user u
+      where c.channel_id = ch.channel_id and c.uid = u.uid
+      <if test="channelId != null">
+          and c.channel_id = #{channelId}
+      </if>
+      <if test="contentType != null">
+          and c.content_type = #{contentType}
+      </if>
+      <if test="keyword != null">
+          and c.content_text like #{keyword}
+      </if>
+      order by c.passtime desc
+  </select>
+</mapper>

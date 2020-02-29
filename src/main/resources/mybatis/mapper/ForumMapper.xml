@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmlvhy.crawler.dao.ForumMapper">
+  <resultMap id="BaseResultMap" type="com.xmlvhy.crawler.entity.Forum">
+    <id column="forum_id" jdbcType="BIGINT" property="forumId" />
+    <result column="post_count" jdbcType="INTEGER" property="postCount" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="forum_sort" jdbcType="INTEGER" property="forumSort" />
+    <result column="forum_status" jdbcType="INTEGER" property="forumStatus" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="user_count" jdbcType="INTEGER" property="userCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    forum_id, post_count, logo, forum_sort, forum_status, info, name, user_count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_forum
+    where forum_id = #{forumId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_forum
+    where forum_id = #{forumId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmlvhy.crawler.entity.Forum">
+    insert into t_forum (forum_id, post_count, logo, 
+      forum_sort, forum_status, info, 
+      name, user_count)
+    values (#{forumId,jdbcType=BIGINT}, #{postCount,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, 
+      #{forumSort,jdbcType=INTEGER}, #{forumStatus,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{userCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmlvhy.crawler.entity.Forum">
+    insert into t_forum
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="forumId != null">
+        forum_id,
+      </if>
+      <if test="postCount != null">
+        post_count,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="forumSort != null">
+        forum_sort,
+      </if>
+      <if test="forumStatus != null">
+        forum_status,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="userCount != null">
+        user_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="forumId != null">
+        #{forumId,jdbcType=BIGINT},
+      </if>
+      <if test="postCount != null">
+        #{postCount,jdbcType=INTEGER},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="forumSort != null">
+        #{forumSort,jdbcType=INTEGER},
+      </if>
+      <if test="forumStatus != null">
+        #{forumStatus,jdbcType=INTEGER},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userCount != null">
+        #{userCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmlvhy.crawler.entity.Forum">
+    update t_forum
+    <set>
+      <if test="postCount != null">
+        post_count = #{postCount,jdbcType=INTEGER},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="forumSort != null">
+        forum_sort = #{forumSort,jdbcType=INTEGER},
+      </if>
+      <if test="forumStatus != null">
+        forum_status = #{forumStatus,jdbcType=INTEGER},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userCount != null">
+        user_count = #{userCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where forum_id = #{forumId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmlvhy.crawler.entity.Forum">
+    update t_forum
+    set post_count = #{postCount,jdbcType=INTEGER},
+      logo = #{logo,jdbcType=VARCHAR},
+      forum_sort = #{forumSort,jdbcType=INTEGER},
+      forum_status = #{forumStatus,jdbcType=INTEGER},
+      info = #{info,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      user_count = #{userCount,jdbcType=INTEGER}
+    where forum_id = #{forumId,jdbcType=BIGINT}
+  </update>
+</mapper>

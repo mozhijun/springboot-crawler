@@ -1,0 +1,60 @@
+.toolbar {
+    margin-top: 10px;
+}
+
+.toolbar i {
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.toolbar i > span {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.layui-row {
+    padding: 5px;
+    padding-left: 20px
+}
+
+.forum-title {
+    width: auto;
+    margin-left: 80px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.forum-subtitle {
+    width: auto;
+    margin-left: 80px;
+    color: #aaa;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.forum-icon {
+    width: 64px;
+    border-radius: 5px;
+    float: left
+}
+
+.comment-text {
+    width: auto;
+    margin-left: 40px;
+    font-size: 12px;
+    padding-left: 10px
+}
+
+.comment-icon {
+    width: 32px;
+    border-radius: 16px;
+    float: left
+}
+
+.video {
+    width: 100%;
+    height: auto;
+}
