@@ -26,23 +26,25 @@
 
 ###### 4.1、相关页面截图
 
-1. 管理页面，包括查询、删除、浏览
+1. 注册登录页，管理页面，包括查询、删除、浏览
 
-![](D:\GitHub\codesofun\crawler1.png)
+![](http://static.xmlvhy.com/sb-crawler/crawler-login.png)
 
-![](D:\GitHub\codesofun\crawler2.png)
+![](http://static.xmlvhy.com/sb-crawler/crawler1.png)
 
-![](D:\GitHub\codesofun\crawler4.png)
+![](http://static.xmlvhy.com/sb-crawler/crawler5.png)
+
+![](http://static.xmlvhy.com/sb-crawler/crawler4.png)
 
 2. 预览页面，基本上将解析的数据，如视频、图片、动态图、文字都展示出来
 
-![](D:\GitHub\codesofun\crawler-video.png)
+![](http://static.xmlvhy.com/sb-crawler/crawler-video.png)
 
-![](D:\GitHub\codesofun\crawler-gif.png)
+![](http://static.xmlvhy.com/sb-crawler/crawler-gif.png)
 
-![](D:\GitHub\codesofun\crawler-img.png)
+![](http://static.xmlvhy.com/sb-crawler/crawler-img.png)
 
-![](D:\GitHub\codesofun\crawler-story.png)
+![](http://static.xmlvhy.com/sb-crawler/crawler-story.png)
 
 #####五、启动
 
@@ -61,6 +63,7 @@ tips:项目中使用了lombok插件，IDE得装lombok插件
 **备注：**
 
 - 项目中用的接口到的使用，Charles 抓包工具抓取分析获取，接口可能会用不了的情况，需要自己重新分享。但是至今，这几个接口还是可以正常爬取内容的。
+- crawler-nodata.sql，数据库脚本是没有任何数据的，因为当前本地数据有几百M大小就不上传了，需要的前往我的[博客]([https://www.xmlvhy.com](https://www.xmlvhy.com/))留言
 
 ##### 特别说明
 
