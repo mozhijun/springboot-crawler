@@ -37,7 +37,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
+            <version>8.0.16</version>
         </dependency>
         <!--分页插件pageHelper-->
         <dependency>
@@ -132,7 +132,7 @@
                         <!--未查件引入jdbc连接驱动-->
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.47</version>
+                        <version>8.0.16</version>
                     </dependency>
                 </dependencies>
             </plugin>
