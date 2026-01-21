@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.10.0</version>
+            <version>4.9.2</version>
         </dependency>
         <!--对象图导航，简化json对象解析
             这里注意不要使用高版本3.2.x，高版本不支持map
